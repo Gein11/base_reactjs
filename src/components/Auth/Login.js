@@ -1,25 +1,48 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { postLogin } from "../../services/apiService";
+import { useDispatch } from "react-redux";
+import { doLogin } from "../../redux/action/userAction";
 const Login = () => {
   const [email, setEmail] = useState("");
+  const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const handleLogin = () => {};
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleLogin = async () => {
+    let data = await postLogin(username, password);
+
+    if (data && data != null) {
+      dispatch(doLogin(data));
+      toast.success(data.EM);
+      navigate("/");
+    }
+    if (data && data == null) {
+      toast.error(data.EM);
+      console.log("err");
+    }
+  };
+
   return (
     <div className="login-container">
-      <div className="header">Don't have account</div>
+      <div className="header">
+        Don't have account
+        <button onClick={() => navigate("/register")}>signUp</button>
+      </div>
       <div className="title col-4 mx-auto ">Hello, who is this</div>
       <div className="content-form">
         <div className="form-group">
-          <label>Email</label>
+          <label>Username:</label>
           <input
-            type="email"
-            value={email}
+            type="text"
+            value={username}
             className="form-control"
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(event) => setUserName(event.target.value)}
           />
         </div>
         <div className="form-group">
-          <label>Email</label>
+          <label>Password</label>
           <input
             type="password"
             value={password}
@@ -28,9 +51,9 @@ const Login = () => {
           />
         </div>
         <div>
-          <butoon className="btn-submit" onClick={() => handleLogin()}>
+          <button className="btn-submit" onClick={() => handleLogin()}>
             Login
-          </butoon>
+          </button>
         </div>
       </div>
     </div>

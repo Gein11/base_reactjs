@@ -11,10 +11,11 @@ import {
 
 import { FaTachometerAlt, FaGem, FaGithub } from "react-icons/fa";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SideBar = (props) => {
   const { image, collapsed, toggled, handleToggleSidebar } = props;
+  const navigate = useNavigate();
   return (
     <>
       <ProSidebar
@@ -37,7 +38,8 @@ const SideBar = (props) => {
               whiteSpace: "nowrap",
             }}
           >
-            Hoi Dan IT
+
+            <span onClick={() => navigate('/')}>    Hoi Dan IT</span>
           </div>
         </SidebarHeader>
 
@@ -55,10 +57,15 @@ const SideBar = (props) => {
           <Menu iconShape="circle">
             <SubMenu icon={<FaGem />}>
               <MenuItem>
-                Quản Lý Users <Link to="/admins/manage-users" />
+                Quản Lý Users
+                <Link to="/admins/manage-users" />
               </MenuItem>
-              <MenuItem> Quản Lý Bài Quiz</MenuItem>
-              <MenuItem> Quản Lý Câu Hỏi</MenuItem>
+              <MenuItem> Quản Lý Bài Quiz
+                <Link to="/admins/manage-quizzes" />
+              </MenuItem>
+              <MenuItem> Quản Lý Câu Hỏi  <Link to="/admins/manage-questions" />
+              </MenuItem>
+
             </SubMenu>
           </Menu>
         </SidebarContent>

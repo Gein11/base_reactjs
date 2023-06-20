@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 import { getAllusers } from "../../../services/apiService";
 
 const TableUserPaginate = (props) => {
@@ -17,6 +18,7 @@ const TableUserPaginate = (props) => {
             <th scope="col">Username</th>
             <th scope="col">Email</th>
             <th scope="col">Role</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -59,7 +61,7 @@ const TableUserPaginate = (props) => {
         <ReactPaginate
           breakLabel="..."
           nextLabel="next >"
-          onPageChange={handlePageClick}
+          onPageChange={handleClickPage}
           pageRangeDisplayed={5}
           pageCount={pageCount}
           previousLabel="< previous"
